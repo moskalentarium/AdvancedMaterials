@@ -9,7 +9,7 @@
 - Uncheck sRGB for the OHR textures
 - Brick texture is 2x2m, Stucco is .35x.35m, thus having to adjust for that
 - Use Brick OHR Green channel as an input for the masking Lerp
-- 
+
 ![Screenshot_2](https://user-images.githubusercontent.com/36862146/223380451-e032b210-1daa-4513-8f66-c6c94eced32f.png)
 
 - Continuing from Lerp we create a high contrast mask. Mask (G) drives the main Lerps between Brick and Stucco, Saturated Subtraction drives the Transition Color
