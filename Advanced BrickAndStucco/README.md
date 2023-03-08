@@ -4,9 +4,9 @@
 ## Steps
 ### Texture prep
 - Megascan textures come unpacked. Simply pack a OcclusionHeightRoughness textures for Brick and Stucco
+### Unreal Material
 - Check Green Channel - it should look like it's lit up from below
 - Uncheck sRGB for the OHR textures
-### Unreal Material
 - Brick texture is 2x2m, Stucco is .35x.35m, thus having to adjust for that
 - Use Brick OHR Green channel as an input for the masking Lerp
 - 
