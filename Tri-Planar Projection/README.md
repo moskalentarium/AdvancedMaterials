@@ -90,3 +90,8 @@ First, we need to combine Normal Maps with WS Vertex Normals, then Swizzle/rearr
 ![Screenshot_9](https://user-images.githubusercontent.com/36862146/224506249-b2d61128-6653-4180-a9c4-4a2174589fa9.png)
 
 Feel free to edit that into a Material Function to never see those connections again
+
+![Screenshot_11](https://user-images.githubusercontent.com/36862146/224506895-d9dee6b6-c69a-4264-bf72-0b0bdc551947.png)
+
+![Screenshot_10](https://user-images.githubusercontent.com/36862146/224506898-fd4607ea-fdf3-44fa-94c6-d036c1853b07.png)
+
