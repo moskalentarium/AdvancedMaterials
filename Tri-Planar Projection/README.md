@@ -74,9 +74,9 @@ In order to use Tri-Planar Projection conveniently, we probably should create a 
 
 ![Screenshot_5](https://user-images.githubusercontent.com/36862146/224503628-35c6a216-1b39-4cc9-b307-073466c9ac5f.png)
 
-### Third iteration of Tri-Planar Projection
+## Third iteration of Tri-Planar Projection
 
-## Blending Normals
+### Blending Normals
 If we were to take a look at the normals we are blending with the regular Tri-Planar Projection, we would see, that it's not what we want. We're projecting Normal Maps that are in Tangent Space, so they are relevant to the UV coordinates of the mesh, not World. So we're going to fix it by converting Normals to World and then back to Tangent Space
 
 ![Screenshot_6](https://user-images.githubusercontent.com/36862146/224504292-e26f50f9-1053-4c8e-a19e-763cde90316b.png)
