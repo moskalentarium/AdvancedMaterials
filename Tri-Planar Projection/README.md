@@ -2,7 +2,7 @@
 ## Using position data
 
 ### Local Position mask
-Allows us to get XYZ components of a mesh in local space - LocalPosition node. In order to get data im meters, we Mulx0.01
+Allows us to get XYZ components of a mesh in local space - LocalPosition node. In order to get data in meters, we Mulx0.01
 
 ![Screenshot_2](https://user-images.githubusercontent.com/36862146/224490595-43933787-3f5a-4a58-aa93-1fa3ecf3162d.png)
 
@@ -41,7 +41,7 @@ SplitComponent to break the masks into their individual directions
 ## First iteration of Tri-Planar Projection
 
 ### Cheap Tri-Planar Projection
-Since we need to project fron all 3 axes, we need to mask and combine the projections. This will result in warping, where the transition happens (UVs blend together). This is solved by increasing the Mask Sharpness and adding a Round node. That leaves us with a sharp transition or seams bettween the masks
+Since we need to project from all 3 axes, we need to mask and combine the projections. This will result in warping, where the transition happens (UVs blend together). This is solved by increasing the Mask Sharpness and adding a Round node. That leaves us with a sharp transition or seams between the masks
 
 ![Screenshot_2](https://user-images.githubusercontent.com/36862146/224493337-32b73690-4a36-4cc5-929d-7c3f57cee9cf.png)
 
@@ -53,3 +53,17 @@ Here we're going to sample the textures first, then blend them together. Sharpne
 ![Screenshot_4](https://user-images.githubusercontent.com/36862146/224493814-6a77157e-0c8b-4277-a912-952f6787573e.png)
 
 ![Screenshot_5](https://user-images.githubusercontent.com/36862146/224493812-55d79414-ba3c-471e-bd84-640e18b71786.png)
+
+## Second iteration of Tri-Planar Projection
+NOTE: Issues N1 and N2 are irrelevant in case of projecting a texture without attributes that are required to be projected with 100% accuracy. Don't bother with the math if directional, numerical, and symmetrical aspects aren't crucial
+### Issue N1: upside-down textures
+We can see that the numbers on X and Y are upside-down. Fixing the B component fixes it
+
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/224494152-f5c1832e-5c78-4a13-afa5-70c7e3d96edc.png)
+![Screenshot_2](https://user-images.githubusercontent.com/36862146/224494363-3d97f37d-eb6a-4086-9161-fa8c4a03eb30.png)
+
+### Issue N2: Numbers are inverted
+We project the texture through the mesh, so it's inverted in the other side. Sign node returns 1 or -1 depending on the sign (+/-) of the input. So I'm checking which direction the normal is facing, then depending on a facing value I'm flipping/not flipping the projection
+
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/224495054-d946f484-ca0d-4be6-b182-f71e88ae0907.png)
+
