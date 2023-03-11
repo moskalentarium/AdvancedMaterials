@@ -67,3 +67,26 @@ We project the texture through the mesh, so it's inverted in the other side. Sig
 
 ![Screenshot_3](https://user-images.githubusercontent.com/36862146/224495054-d946f484-ca0d-4be6-b182-f71e88ae0907.png)
 
+### Converting to Material Function
+In order to use Tri-Planar Projection conveniently, we probably should create a Materail Function. Simply copy and paste the nodes and add 3 Inputs: Texture2D, Scale (Default 1,1,1), and Sharpness (Default 8)
+
+![Screenshot_4](https://user-images.githubusercontent.com/36862146/224503375-344f0558-a52b-4ec2-9e56-eed9c9418e89.png)
+
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/224503628-35c6a216-1b39-4cc9-b307-073466c9ac5f.png)
+
+### Third iteration of Tri-Planar Projection
+
+## Blending Normals
+If we were to take a look at the normals we are blending with the regular Tri-Planar Projection, we would see, that it's not what we want. We're projecting Normal Maps that are in Tangent Space, so they are relevant to the UV coordinates of the mesh, not World. So we're going to fix it by converting Normals to World and then back to Tangent Space
+
+![Screenshot_6](https://user-images.githubusercontent.com/36862146/224504292-e26f50f9-1053-4c8e-a19e-763cde90316b.png)
+
+First, we need to combine Normal Maps with WS Vertex Normals, then Swizzle/rearrange channels and, finally, add TransformVector node. This process includes isolating one direction, comparing it to the correctly mapped normals, and inverting whole/facing wrong way channels. Hope you love pasta
+
+![Screenshot_7](https://user-images.githubusercontent.com/36862146/224506251-c32a3a9f-4660-4ead-a7b1-086a440d4242.png)
+
+![Screenshot_8](https://user-images.githubusercontent.com/36862146/224506252-6ee54ed4-795f-4154-9e94-23330df4dfdf.png)
+
+![Screenshot_9](https://user-images.githubusercontent.com/36862146/224506249-b2d61128-6653-4180-a9c4-4a2174589fa9.png)
+
+Feel free to edit that into a Material Function to never see those connections again
