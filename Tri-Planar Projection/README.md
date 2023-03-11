@@ -1,5 +1,6 @@
 # A to Z Tri-Planar Projection
 ## Using position data
+
 ### Local Position mask
 Allows us to get XYZ components of a mesh in local space - LocalPosition node. In order to get data im meters, we Mulx0.01
 
@@ -38,3 +39,17 @@ SplitComponent to break the masks into their individual directions
 ![Screenshot_4](https://user-images.githubusercontent.com/36862146/224492416-8c300f67-293e-4012-bdae-ae05477fcf1b.png)
 
 ## First iteration of Tri-Planar Projection
+
+### Cheap Tri-Planar Projection
+Since we need to project fron all 3 axes, we need to mask and combine the projections. This will result in warping, where the transition happens (UVs blend together). This is solved by increasing the Mask Sharpness and adding a Round node. That leaves us with a sharp transition or seams bettween the masks
+
+![Screenshot_2](https://user-images.githubusercontent.com/36862146/224493337-32b73690-4a36-4cc5-929d-7c3f57cee9cf.png)
+
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/224493336-0514fe34-6a98-46a6-9a8d-477388f8ad7e.png)
+
+### Seamless Transition
+Here we're going to sample the textures first, then blend them together. Sharpness is back to 8, Round is deleted
+
+![Screenshot_4](https://user-images.githubusercontent.com/36862146/224493814-6a77157e-0c8b-4277-a912-952f6787573e.png)
+
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/224493812-55d79414-ba3c-471e-bd84-640e18b71786.png)
