@@ -1,32 +1,34 @@
-# Advanced Volumetric Ice
-![Screenshot_1](https://user-images.githubusercontent.com/36862146/224298260-45a9d05d-76f0-4149-94e6-6f128ebb7a63.png)
+# Advanced Glass
+![Screenshot_9](https://user-images.githubusercontent.com/36862146/224485657-31476537-eb19-4f93-97e0-ae2712be63b4.png)
 
-## Description
-Here are a couple of unique things about this shader. First, it doesn't use refraction, it offsets SceneColor to create that effect. Next, it simulates Volumetric properties, like textures are pushed in
-## Steps
-### Unreal Material
-- Simple Ice Roughness texture from cc0textures set to Grayscale. Normal Map is the baked map for that rock
-- Shader is Translucent, Surface TranslucencyVolume
-![Screenshot_5](https://user-images.githubusercontent.com/36862146/224298259-114d4929-a741-4ce6-9d32-5b3c942a3db4.png)
+![Screenshot_8](https://user-images.githubusercontent.com/36862146/224485656-df892c1c-8fb0-4c19-9101-6dc2d40a9122.png)
 
-- As I said, it uses the SceneColor to simulate refraction. To achieve that we also need to know the normals in ViewSpace and the ScreenPosition. Color then is Multiplied by the BackgroundTint and Lerped with InternalVolumetricTint via a mask
-![Screenshot_2](https://user-images.githubusercontent.com/36862146/224298248-dae5b4fc-e465-4232-a0ae-8ff3295ca383.png)
+## Ben Claward's Glass
+![Screenshot_2](https://user-images.githubusercontent.com/36862146/224483469-29ff70a5-95d9-45c5-8fa1-ddcdc5d41e04.png)
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/224483473-f4486d8e-7827-404b-bfa1-aef5505bbf27.png)
 
-- Here we will try to achieve an effect of the textures being inside a Mesh, while being projected from the camera view. CustomReflectionVector uses a normal map to generate a reflection vector independent of the default reflection vector and the normal's input on the base shader. Then we Mask vec3 to 2xVec2 
-![Screenshot_4](https://user-images.githubusercontent.com/36862146/224300788-94f037b6-36cf-4324-8c4c-87b8c0036556.png)
+Translucent, Surface TranslucencyVolume(most of the cost). Using value of 10 to push the Specular and make it extra reflective. 1.5 is the IOR of glass. SpiralBlur creates a frost effect on the glass. 64 steps would be your limit here. Unplug Emissive and plug 0.35 to opacity to create clear glass
 
-- This is the RG Mask, that changes based on Camera input
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/224483476-1c7a3110-9f15-40f4-8ec1-5a2377265b43.png)
 
-![Screenshot_7](https://user-images.githubusercontent.com/36862146/224303497-aed231b9-cc32-44a0-aac5-cb37a1a6ffd6.png)
+## Drawcall's Glass
+### Additive
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/224484482-b63e6f5b-9bc3-454f-9ed3-ccafcf1879e9.png)
 
-- Next up, we use Depth to determine how deep to drive the texture in, 2048 is the texture size
-![Screenshot_3](https://user-images.githubusercontent.com/36862146/224300784-fe024c7c-fa20-41a2-9eb3-991d1afc9a77.png)
+Additive Blend mode (you can go as fas as using Unlit Shading Model). We feed reflection vector into HDRI Texture Sample, adding brightness, tint, and opacity. Quite cheap
 
-- This iis the Multiply node before we Add the TextureCoord node, that changes based on Camera input
+![Screenshot_4](https://user-images.githubusercontent.com/36862146/224484488-8b48aeb5-3a15-4235-8639-963a76ac9723.png)
 
-![Screenshot_8](https://user-images.githubusercontent.com/36862146/224303492-a5982e5c-6d55-4294-8f48-b09ff3700e12.png)
+### Translucent/Additive with refraction
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/224485127-7138cb80-37a1-4a85-af2d-293fe9e6488d.png)
 
+Translucent or Additive didn't seem to change much, but Refraction adds complexity
 
-### Comments
-Here's what people say about TAA issues
-![Screenshot_6](https://user-images.githubusercontent.com/36862146/224300777-076bb625-c254-4f93-b02b-c33c8c225931.png)
+![Screenshot_6](https://user-images.githubusercontent.com/36862146/224485126-237a6a83-0873-4b5e-a9ff-a1bc5b0b7617.png)
+
+### Modulate Unlit
+![Screenshot_11](https://user-images.githubusercontent.com/36862146/224485654-f270a6c9-4044-497e-96db-ce20162428a0.png)
+
+This one would be the cheapest, though not producing the best results
+
+![Screenshot_10](https://user-images.githubusercontent.com/36862146/224485659-28befc11-d73a-4de3-bd8a-0bb3ad7f0a6f.png)
