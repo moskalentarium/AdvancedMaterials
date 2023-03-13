@@ -12,6 +12,7 @@ Here we're going to calculate our own normals using DDX and DDY. Result of DDX i
 
 ## LatLong Projection
 NOTE: Make sure to convert your HDRI into a PNG, so that Unreal treats it as a texture, not a CubeMap. Otherwise you aren't able to use vec2 as UV input
+
 We can use the PixelNormal to project/map a texture onto an object with LongLatToUV node. However, we get a weir seam right in me middle because the coordinates jump instantly from 0 to 1 and the sampler can't figure out which MipMap to use. By switching the MipValueNode to Derivative for the TextureSample, we get access to DDX and DDY sockets that solve it for us
 
 ![Screenshot_4](https://user-images.githubusercontent.com/36862146/224826397-e25800d5-3e37-4721-afc5-59513a72b3ab.png)
