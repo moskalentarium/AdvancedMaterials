@@ -1,5 +1,5 @@
 # Toon shader and Outline
-![Screenshot_3](https://user-images.githubusercontent.com/36862146/224748226-4075e8fb-b590-4b20-a37c-20396ab9a231.png)
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/224765195-25fa130c-b277-4c02-b470-df1ca9b1a303.png)
 
 ## Toon shader
 ### Texture prep
