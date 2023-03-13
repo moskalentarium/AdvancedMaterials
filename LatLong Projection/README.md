@@ -25,6 +25,7 @@ Incoming data is vec3, so we generate the U coordinate out of the R and G values
 
 ![Screenshot_7](https://user-images.githubusercontent.com/36862146/224826405-5616b907-9de6-46e9-8c70-a74b2518e87a.png)
 ![Screenshot_8](https://user-images.githubusercontent.com/36862146/224826409-fd019c3c-f0ff-42b6-8ee7-d49bf791d5e7.png)
+![Screenshot_9](https://user-images.githubusercontent.com/36862146/224829885-8f1bb9d9-3d06-482a-8a1d-b54acd4ace4e.png)
 
 ## Convert Bump map to Normal with DDX and DDY
 You can use the node PerturbNormalLQ and Transform WS to TS and you're good!
