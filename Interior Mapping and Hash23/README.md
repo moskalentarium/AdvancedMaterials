@@ -7,7 +7,7 @@ Here's a good illustration what a cubemap is: six sides of a cube, six images, t
 
 ![Screenshot_1](https://user-images.githubusercontent.com/36862146/225050722-f4922041-777e-47ca-b9f5-519c662b3aa6.png)
 
-## Capture a Cubemap
+### Capture a Cubemap
 I could set 6 cameras, FOV of 90*, aspect ratio to square, and I would capture the images. Either way, I simply need 6 images, that are properly alligned. There's an issue with Unreal and Cubemaps: they have to be in .dds format, which Photoshop can't export to. We will need the NVIDIA Texture Tools plug-in for Photoshop (32bits/Channel, 8.8.8.8 ARGB 32 bpp, unsigned) and arrange the textures as such:
 
 ![CubeMapNvidiaLayout](https://user-images.githubusercontent.com/36862146/225050716-482477a1-c76b-45ef-9c13-73a8c61b27cd.png)
@@ -50,3 +50,18 @@ Mul combines the original CameraVector with the projection, adding the TexCoord 
 ![CameraVectorMul](https://user-images.githubusercontent.com/36862146/225050728-a3aebd09-0d44-4911-8a92-ce3cab93af34.png)
 ![Screenshot_11](https://user-images.githubusercontent.com/36862146/225050725-1e795bb5-1f5c-4359-9ae4-7bb248df9fde.png)
 ![Screenshot_10](https://user-images.githubusercontent.com/36862146/225050733-a7f52eba-8da7-4dea-8aa5-437d1d21af3d.png)
+
+## Noise Hash23
+### Noise to randomize the rooms
+Right now our shader has only one room, so we need a parameter to control the anount of rooms. Simply Mul TexCoord by a vec2! Though every single room looks exactly the same, which we are going to fix
+
+### MF_Hash23
+Hash23 becuase we're inputting a vec2 and generating a vec3. For this Material Function we scrambleb up the UV into 3 vec3 (XYX, YXX, XYY), got a DotProduct with 3 random numbers ((127.1, 311.7, 74.7), (269.5, 183.3, 246.1), (113.5, 271.9, 124.6)), which made a new vec3. We scramble it again with 43758.5453123 and Frac
+
+So if we plug our UVs in, we get a random number/color in every room. In order to make this data a bit more useful instead of a random color, we want each room to have 0 or 1 in each of the RGB values. So Round is going to do just that
+
+We're going to use that random data to: (1) choose a random side/wall to be the back and (2) whether or not to mirror the wall, so that it's showing the inverse of what it is. We Mul the result of that with the swizzled RGB right before the TextureSample to get this
+
+And to finish it up we plug the Blue channel from Hash23 into a Lerp to interpolate between the green textures as well!
+
+## Interior Mapping polish
