@@ -58,10 +58,21 @@ Right now our shader has only one room, so we need a parameter to control the an
 ### MF_Hash23
 Hash23 becuase we're inputting a vec2 and generating a vec3. For this Material Function we scrambleb up the UV into 3 vec3 (XYX, YXX, XYY), got a DotProduct with 3 random numbers ((127.1, 311.7, 74.7), (269.5, 183.3, 246.1), (113.5, 271.9, 124.6)), which made a new vec3. We scramble it again with 43758.5453123 and Frac
 
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/225069115-63a7004d-d6bc-47b4-ba41-5e1431171bac.png)
+
 So if we plug our UVs in, we get a random number/color in every room. In order to make this data a bit more useful instead of a random color, we want each room to have 0 or 1 in each of the RGB values. So Round is going to do just that
+
+![Screenshot_2](https://user-images.githubusercontent.com/36862146/225069119-90c2ef99-6839-4cf5-94a4-dc27f9d1121b.png)
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/225069125-61ab5a31-11c5-4f75-9a7b-d834ba69a108.png)
 
 We're going to use that random data to: (1) choose a random side/wall to be the back and (2) whether or not to mirror the wall, so that it's showing the inverse of what it is. We Mul the result of that with the swizzled RGB right before the TextureSample to get this
 
+![Screenshot_4](https://user-images.githubusercontent.com/36862146/225069128-7793d5fa-20b1-4523-93ed-28a185f3984c.png)
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/225069130-29eec8e8-3691-413c-a4d8-86cbcb064d4f.png)
+
 And to finish it up we plug the Blue channel from Hash23 into a Lerp to interpolate between the green textures as well!
+
+![Screenshot_7](https://user-images.githubusercontent.com/36862146/225069105-b3bfe34e-1213-4b16-aee1-ed058ef65f07.png)
+![Screenshot_6](https://user-images.githubusercontent.com/36862146/225069135-a12c25c3-57e8-4596-a124-39bcc4f873e0.png)
 
 ## Interior Mapping polish
