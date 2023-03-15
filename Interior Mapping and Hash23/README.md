@@ -19,6 +19,12 @@ So open up your array of 6 textures in Photoshop, Save as... .DDS, Format "32bit
 
 ![Screenshot_3](https://user-images.githubusercontent.com/36862146/225050689-2a8d285d-da69-49c8-87a1-f38d9639e7b1.png)
 
+## Sphere Mapping
+Whatever direction you look at it from, it will stay on a mesh looking at you (o)-(o). Google MatCap Texture and use any of those. Works best on spheres
+
+![Screenshot_2](https://user-images.githubusercontent.com/36862146/225380284-3b442649-5f95-436c-bfad-472a3baf398d.png)
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/225380275-4797c4b2-781a-4e11-bcef-faf5a8f4b70a.png)
+
 ## Interior Mapping
 ![Screenshot_9](https://user-images.githubusercontent.com/36862146/225050737-fbdc08a4-aaca-4098-a368-5e1663231f8d.png)
 ![Screenshot_10](https://user-images.githubusercontent.com/36862146/225050733-a7f52eba-8da7-4dea-8aa5-437d1d21af3d.png)
