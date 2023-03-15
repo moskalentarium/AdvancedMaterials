@@ -76,3 +76,15 @@ And to finish it up we plug the Blue channel from Hash23 into a Lerp to interpol
 ![Screenshot_6](https://user-images.githubusercontent.com/36862146/225069135-a12c25c3-57e8-4596-a124-39bcc4f873e0.png)
 
 ## Interior Mapping polish
+To give this material a more practical use, we should convert it into a Material Function as well as create a set of textures for interior and exterior of this "building". MF_ is as easy as copy and paste the setup without the TextureSample, add a vec2 input for the size of the grid, a vec2 with DefaultValue checked for both, and a second Output node capturing Round of Hash23
+
+When creating a texture, make sure that Y resolution = 6x X resolution, while Y in at least 512px. Here I has to adjust the texture UVs. In order to to dim the windows down, we Mulx.5, then we use fresnel to control darkness of the windows that are at a steeper angle. Same darkening is applied to the interior, as well as random cells are getting lit up
+
+## Object Space Interior Mapping
+So previously, the interior of a building is dependent on UVs, now we make it dependent on Object Space Position (used when UVs aren't really well laid out or create an interior with a roof). M_InteriorMapping, MF_InteriorCube, and Hash will have to be updated
+
+### Hash33
+
+### MF_InteriorCubeObject
+
+### M_InteriorMappingObject
