@@ -33,7 +33,11 @@ CameraVector is originally in WS, we need it to be in TS (relative to the surfac
 ![Screenshot_6](https://user-images.githubusercontent.com/36862146/225050768-5d0c23fb-aad7-4976-b552-77172ce44db4.png)
 ![Screenshot_7](https://user-images.githubusercontent.com/36862146/225050762-77eeb50f-93ca-42ab-bea2-c807099a425a.png)
 
-Combining the CameraVector with TexCoord will map the texture as if it's mapped inside the cube. Now, this is what Divide output shows (coordinates are projected from the camera), 
+Combining the CameraVector with TexCoord will map the texture as if it's mapped inside the cube. 
+
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/225295098-5b2ed2fa-a2db-443a-a391-b1081714cb66.png)
+
+Now, this is what Divide output shows (coordinates are projected from the camera), 
 
 ![CameraVectorDivide](https://user-images.githubusercontent.com/36862146/225050756-ab8d355d-e62d-43e3-b805-f7e1c1acb92f.png)
 
@@ -75,16 +79,37 @@ And to finish it up we plug the Blue channel from Hash23 into a Lerp to interpol
 ![Screenshot_7](https://user-images.githubusercontent.com/36862146/225069105-b3bfe34e-1213-4b16-aee1-ed058ef65f07.png)
 ![Screenshot_6](https://user-images.githubusercontent.com/36862146/225069135-a12c25c3-57e8-4596-a124-39bcc4f873e0.png)
 
+NOTE: The full material setups are below!
 ## Interior Mapping polish
 To give this material a more practical use, we should convert it into a Material Function as well as create a set of textures for interior and exterior of this "building". MF_ is as easy as copy and paste the setup without the TextureSample, add a vec2 input for the size of the grid, a vec2 with DefaultValue checked for both, and a second Output node capturing Round of Hash23
 
+### MF_InteriorCubeMapping
+![CubeMapping3](https://user-images.githubusercontent.com/36862146/225293600-b9e31822-ed00-4328-8cc4-4610a3faeb41.png)
+![CubeMapping1](https://user-images.githubusercontent.com/36862146/225293589-5840c599-cd19-4dee-bbe0-b2e0dbb88d76.png)
+![CubeMapping2](https://user-images.githubusercontent.com/36862146/225293596-d3187d98-56f3-4066-b9c3-579bdb253d42.png)
+
+### M_InteriorCubeMapping
+![M_Mapping](https://user-images.githubusercontent.com/36862146/225293609-645aadbf-df75-4028-b63f-618c80b7b193.png)
+
 When creating a texture, make sure that Y resolution = 6x X resolution, while Y in at least 512px. Here I has to adjust the texture UVs. In order to to dim the windows down, we Mulx.5, then we use fresnel to control darkness of the windows that are at a steeper angle. Same darkening is applied to the interior, as well as random cells are getting lit up
+
+![Screenshot_3](https://user-images.githubusercontent.com/36862146/225293583-a5e6d7e7-676f-4204-ae98-984fd35cac8f.png)
 
 ## Object Space Interior Mapping
 So previously, the interior of a building is dependent on UVs, now we make it dependent on Object Space Position (used when UVs aren't really well laid out or create an interior with a roof). M_InteriorMapping, MF_InteriorCube, and Hash will have to be updated
 
 ### Hash33
 
+![Hash33](https://user-images.githubusercontent.com/36862146/225293607-5abd7cf9-7f56-4a0e-9cd3-71d63c89ad61.png)
+
 ### MF_InteriorCubeObject
 
+![CubeMappingObject1](https://user-images.githubusercontent.com/36862146/225293602-70b75ec0-b320-4b8d-a18b-dca20f427b20.png)
+![CubeMappingObject2](https://user-images.githubusercontent.com/36862146/225293605-f9e08b4a-96e6-44d9-aca2-e09063576e73.png)
+
 ### M_InteriorMappingObject
+
+![M_Object](https://user-images.githubusercontent.com/36862146/225293576-7d638670-ddfb-4d07-a3f8-af62aa4a0cc8.png)
+
+### Result
+![Screenshot_5](https://user-images.githubusercontent.com/36862146/225293588-d931ecde-5900-4272-b337-137e7a87a573.png)
