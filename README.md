@@ -1,6 +1,8 @@
 # Advanced Materials
 ## The Graphics Pipeline
 
+![Screenshot_1](https://user-images.githubusercontent.com/36862146/225571168-f95ce50c-6090-48d5-a715-5d44fa05b158.png)
+
 1. The data starts out on a CPU, where a 3D **program passes vertex data** through DirectX, OpenGL, etc. to the Graphics Driver
 2. The **Graphic Driver** then **sends the data to the GPU's Front End**, which is a graphic chip designed for communication with the CPU
 3. The data then gets sent to the **Programmable Vertex Processor** - where the **Vertex Shader** runs
