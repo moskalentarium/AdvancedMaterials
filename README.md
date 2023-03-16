@@ -13,9 +13,9 @@
     - Vertex Colors
     - Normals
 
-The most important thing that Vertex Processor does is **Transforming the Vertex Position form Object Space to Screen Projection Space, so it can be turned into triangles and drawn onto the screen**. Vertex Shader can also animate the positions of the verticves, scroll the UV coordinates, bend the Vertex Normals, and calculate lighting and store it in the Vertex Colors. 
+    The most important thing that Vertex Processor does is **Transforming the Vertex Position form Object Space to Screen Projection Space, so it can be turned into triangles and drawn onto the screen**. Vertex Shader can also animate the positions of the verticves, scroll the UV coordinates, bend the Vertex Normals, and calculate lighting and store it in the Vertex Colors. 
 
-Most of the adjustments happen on per pixel basis, so if you have operations than can be moved from Pixel Shader to Vertex Shader, it can boost the performace
+    Most of the adjustments happen on per pixel basis, so if you have operations than can be moved from Pixel Shader to Vertex Shader, it can boost the performace
 
 4. **Primitive Assembly**. The Graphics Chip **connects** all of the **vertices** together **to create triangles**. So **the result of the Vertex Shader** combined with **Primitive Assembly** is **triangles in Screen Projection Space**
 5. Then, the data gets passed to the **Rasterization & Interpolation Unit**. The job of this hardware is to **convert the triangles into pixels** on the screen. The other thing that happens here is **Interpolation**: the **data** that was stored in each of the vertices is smoothtly **interpolated to the pixels** (Vertex Color, Normals, UV coordinates)
