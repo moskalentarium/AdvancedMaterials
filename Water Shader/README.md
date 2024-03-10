@@ -1,5 +1,9 @@
 # Water Shader
 
+- [Part I: Gerstner Wave](#part-i-gerstner-wave)
+- [Part II: Panning Normal Maps](#part-ii-panning-normal-maps)
+- [Part III: Refraction and Depth](#part-iii-refraction-and-depth)
+
 ## Part I: Gerstner Wave
 
 ![Screenshot_1](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/1c7e4bf6-205d-4579-88ab-0fb57f00adcb)
@@ -42,3 +46,11 @@ Here's the final optimized Part II shader
 NOTE that the Normals look nicer when unoptimized
 
 ![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/4914243e-dec3-4071-84bb-53c1f89e968b)
+
+## Part III: Refraction and Depth
+
+First, we set Shader Parameters as follows: Translucent, Two-Sided ON, Cast Ray Traced Shadows OFF, Screen Space Reflections ON (OFF for optimization), Lighting Mode to Surface Translucency Volume, Refraction Method to Pixel Normal Offset
+
+Then, we use Fresnel with toned-down Normal data for Opacity and 0.75 for Refraction
+
+![Screenshot_6](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/e7bd87fe-5061-4297-9ece-4254110e42b9)
