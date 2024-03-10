@@ -20,7 +20,25 @@ Next up we derive Normal data from the sine and cosine function outputs
 
 ![Screenshot_18](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/7b3e0d96-1c4b-43f4-813b-f2fa7fec09f7)
 
-Here are the Master Material values that seem to work OK. You can add a Vertex Interpolator node before the Shader's Normal input to move ~50 instructions from PS to VS
+Here are the Master Material values that seem to work OK. You should add a Vertex Interpolator node before the Shader's Normal input to move ~50 instructions from PS to VS
 
 ![Screenshot_17](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/37b71684-3a1b-4245-84a0-c1e0e3e94b02)
 
+## Part II: Panning Normal Maps
+
+![Screenshot_5](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/e6c897cf-2d91-4aca-a545-43a9f1531697)
+
+Adding some panning Normal Maps could be as easy as this
+
+![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/3698c8ef-6a77-4fc5-8109-c6f34e218ff4)
+
+If you only use a Normal Map Texture (and there are no more textures to pack them together), then you can reduce your instruction count by moving some of the shader math from under the hood to the shader itself. If a texture's compression is set to Normal Map, then Unreal moves the RED channel to the Alpha channel, leaves GREEN as is, ignores the BLUE channel, expands the data from [0:1] to [-1:1], and derives normal Z. Why do that math every time you read a Normal map, if you can combine them first and then do the math once after?
+
+In Photoshop, we swizzle the channels to be R-Empty, G-Green, B-Empty, A-Red, set Texture Compression to Default, No sRGB (Format should become DXT5). Then we do the "Normal Map Math", ADD data to "blend", MUL data to "flatten", and DeriveNormalZ ONCE, not thrice. This brings the instruction count down by 18
+
+![Screenshot_3](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/055987d6-c3c2-4753-aa72-bd2dbc82d8c9)
+
+Here's the final optimized Part II shader
+NOTE that the Normals look nicer when unoptimized
+
+![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/4914243e-dec3-4071-84bb-53c1f89e968b)
