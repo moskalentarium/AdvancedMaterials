@@ -51,6 +51,20 @@ NOTE that the Normals look nicer when unoptimized
 
 First, we set Shader Parameters as follows: Translucent, Two-Sided ON, Cast Ray Traced Shadows OFF, Screen Space Reflections ON (OFF for optimization), Lighting Mode to Surface Translucency Volume, Refraction Method to Pixel Normal Offset
 
-Then, we use Fresnel with toned-down Normal data for Opacity and 0.75 for Refraction
+Then, we need to make the water limit the visibility the further behind the water plane objects are. Here, we get a coefficient between the Scene Depth (behind the plane) and Pixel Depth (the plane). The deeper, the brighter values we get
 
-![Screenshot_6](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/e7bd87fe-5061-4297-9ece-4254110e42b9)
+![Screenshot_1](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/410d22e8-d7fb-4a45-8ec4-8fba61b8218e)
+
+However, that's dependent on the distance from the camera, so we need to factor in how far away the camera is to keep the gradient consistent. We take the camera's Z position and adjust the gradient, then we offset the gradient away from the camera
+NOTE: Don't let the camera go below the floor plane
+
+![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/474bad0d-0f5d-48d5-b28b-c43c58556a40)
+
+We multiply the result with the Depth Fade node to smooth out the opacity transition where the water meets opaque objects
+
+![Screenshot_3](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/0701752d-c1c4-40ad-88dd-3fe704dd0e93)
+
+Since we don't want to have any refraction close where the water surface touches opaque objects, we use a Lerp
+
+![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/b532f4fe-b500-433e-b40e-b2e8f6e5bd3d)
+
