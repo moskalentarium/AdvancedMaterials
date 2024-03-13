@@ -3,6 +3,7 @@
 - [Part I: Gerstner Wave](#part-i-gerstner-wave)
 - [Part II: Panning Normal Maps](#part-ii-panning-normal-maps)
 - [Part III: Refraction and Depth](#part-iii-refraction-and-depth)
+- [Part IV: Foam](#part-iv-foam)
 
 ## Part I: Gerstner Wave
 
@@ -68,3 +69,17 @@ Since we don't want to have any refraction close where the water surface touches
 
 ![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/b532f4fe-b500-433e-b40e-b2e8f6e5bd3d)
 
+## Part IV: Foam
+
+The way we're going to generate foam around emerged objects is by sampling the depth and using it as a mask. This is cheap, but looks "unfinished"
+
+![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/c55d071e-4cc7-48ea-8d6b-edc1251ee9f1)
+
+Here we introduce a 4Way_Chaos function that is shipped with Unreal and moves the same texture in NE-SE-SW-NW directions. Then we get the Depth Mask (picture below), set our custom depth (above which depth to draw it), adjust the values a bit to get the sparse foam to be applied further/deeper than the dense foam. We mask the scrolling texture and combine the result to become a white mask
+
+![Screenshot_1](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/98a33c62-4763-417c-a56a-81cad4cffdb5)
+![Screenshot_3](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/983913e8-dd2c-4190-a547-0e00969d9804)
+
+We use that mask to drive color and opacity
+
+![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/d0b18288-5bc8-44de-a539-23ab12ca3ab1)
