@@ -4,6 +4,9 @@
 - [Part II: Panning Normal Maps](#part-ii-panning-normal-maps)
 - [Part III: Refraction and Depth](#part-iii-refraction-and-depth)
 - [Part IV: Foam](#part-iv-foam)
+- [Part IV: Foam](#part-v-caustics)
+
+![Screenshot_3](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/58e0f05e-0036-4c0d-8c64-1b471d0b3cd6)
 
 ## Part I: Gerstner Wave
 
@@ -52,6 +55,14 @@ NOTE that the Normals look nicer when unoptimized
 
 First, we set Shader Parameters as follows: Translucent, Two-Sided ON, Cast Ray Traced Shadows OFF, Screen Space Reflections ON (OFF for optimization), Lighting Mode to Surface Translucency Volume, Refraction Method to Pixel Normal Offset
 
+================================================================================
+#### UPD Ben's version of the shader is inconsistent: the farther away we are, the more transparent the water gets. Also, getting the water below the Z floor makes it fully opaque. Here's the better version of the shader
+--------------------------------------------------------------------------------
+
+![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/717fc299-7290-43f8-ad24-8d7f51c72888)
+
+================================================================================
+
 Then, we need to make the water limit the visibility the further behind the water plane objects are. Here, we get a coefficient between the Scene Depth (behind the plane) and Pixel Depth (the plane). The deeper, the brighter values we get
 
 ![Screenshot_1](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/410d22e8-d7fb-4a45-8ec4-8fba61b8218e)
@@ -83,3 +94,25 @@ Here we introduce a 4Way_Chaos function that is shipped with Unreal and moves th
 We use that mask to drive color and opacity
 
 ![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/d0b18288-5bc8-44de-a539-23ab12ca3ab1)
+
+## Part V: Caustics
+
+Caustics here are a simple Tri-Planar Decal setup that pans the Caustic mask with some UV distortion
+
+![Screenshot_4](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/4afde594-0112-4d65-ade4-d193c8d2d34d)
+
+The problem here is that the shader looks at the World Normal and gets all the Normal Map data, which has a lot of vector transitions. This creates hard seams on the sampled meshes
+
+![Screenshot_5](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/8c89302e-db10-49a4-9965-a506ba5b6297)
+
+One way to get around that is to get a derivative of the position. The cross product of DDY and DDX returns World Space Face Normal (not smooth, but not as detailed as texture normals)
+
+![Screenshot_2](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/d332c867-ff69-4ea1-9c42-7b2e6d341709)
+
+![Screenshot_1](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/f47f175a-1988-4c35-bd7e-4aa9efbb453b)
+
+Additionally, the decal has a hard cut-off. It would be nice to create a "3D" fade mask that smooths it out
+
+![Screenshot_6](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/59d52ad7-d556-486e-8491-ad553c5ea9aa)
+
+![Screenshot_3](https://github.com/moskalentarium/AdvancedMaterials/assets/36862146/6cf1fe0d-b1d7-4a52-90e4-4015038b1a09)
